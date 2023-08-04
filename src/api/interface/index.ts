@@ -1,0 +1,37 @@
+export interface Result {
+    code: number;
+    message: string;
+}
+
+export interface ResultData<T> {
+    code: number;
+    message: string;
+    data: T;
+}
+
+export interface ResPage<T> {
+    data: any[];
+    items: T[];
+    total: number;
+}
+
+export interface ReqPage {
+    page: number;
+    size: number;
+}
+export interface SearchWithPage {
+    info: string;
+    page: number;
+    pageSize: number;
+    orderBy?: string;
+    order?: string;
+}
+export interface CommonModel {
+    id: number;
+    CreatedAt?: string;
+    UpdatedAt?: string;
+}
+export interface DescriptionUpdate {
+    id: number;
+    description: string;
+}
