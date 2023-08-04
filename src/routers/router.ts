@@ -1,29 +1,72 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/routers/constant';
 
-const modules = import.meta.globEager('./modules/celebrities.ts');
+const modules = import.meta.globEager('./mymodules/ranks.ts');
 
 const homeRouter: RouteRecordRaw = {
     path: '/',
     component: Layout,
-    redirect: '/',
+    redirect: '/celebrities/entertainment',
     meta: {
-        keepAlive: true,
-        title: 'menu.rank',
-        icon: 'p-rejected-order',
+        icon: 'p-star',
+        title: 'menu.celebrity',
     },
     children: [
         {
-            path: '/',
-            name: 'rank',
-            component: () => import('@/views/ranks/index.vue'),
-            meta: {
-                requiresAuth: true,
-            },
+            path: '/celebrities',
+            name: 'celebrities',
+            redirect: '/celebrities/entertainment',
+            component: () => import('@/views/celebrities/index.vue'),
+            meta: {},
+            children: [
+                {
+                    path: 'entertainment',
+                    name: 'RankEntertainment',
+                    component: () => import('@/views/celebrities/entertainment/index.vue'),
+                    props: true,
+                    // hidden: true,
+                    meta: {
+                        activeMenu: '/celebrities',
+                        requiresAuth: false,
+                    },
+                },
+                {
+                    path: 'life',
+                    name: 'lifeCategory',
+                    component: () => import('@/views/celebrities/life/index.vue'),
+                    props: true,
+                    // hidden: true,
+                    meta: {
+                        activeMenu: '/celebrities',
+                        requiresAuth: false,
+                    },
+                },
+                {
+                    path: 'game',
+                    name: 'gameCategory',
+                    component: () => import('@/views/celebrities/game/index.vue'),
+                    props: true,
+                    // hidden: true,
+                    meta: {
+                        activeMenu: '/celebrities',
+                        requiresAuth: false,
+                    },
+                },
+                {
+                    path: 'knowledge',
+                    name: 'RankKnowledge',
+                    component: () => import('@/views/celebrities/knowledge/index.vue'),
+                    props: true,
+                    // hidden: true,
+                    meta: {
+                        activeMenu: '/celebrities',
+                        requiresAuth: false,
+                    },
+                },
+            ],
         },
     ],
 };
-console.log(modules);
 export const routerArray: RouteRecordRaw[] = [];
 
 export const rolesRoutes = [
