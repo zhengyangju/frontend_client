@@ -67,16 +67,18 @@ export const routes: RouteRecordRaw[] = [
     //         key: 'login',
     //     },
     // },
-    {
-        path: '/:code?',
-        name: 'entrance',
-        component: () => import('@/views/login/entrance/index.vue'),
-        props: true,
-    },
+    // {
+    //     path: '/:code?',
+    //     name: 'entrance',
+    //     component: () => import('@/views/login/entrance/index.vue'),
+    //     props: true,
+    // },
     ...routerArray,
     {
-        path: '/:pathMatch(.*)',
-        redirect: { name: '404' },
+        path: '/:pathMatch(.*)*', ///:pathMatch(.*)*
+        // redirect: { name: '404' },
+        name: '404',
+        component: () => import('@/components/error-message/404.vue'),
     },
 ];
 const router = createRouter({
