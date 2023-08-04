@@ -1,5 +1,23 @@
 <template>
     <LayoutContent v-loading="loading" :title="$t('celebrities.entertainment')">
+        <template #toolbar>
+            <el-row>
+                <el-col :xs="24" :sm="16" :md="16" :lg="16" :xl="16"></el-col>
+                <el-col :xs="24" :sm="8" :md="8" :lg="8" :xl="8">
+                    <div class="search-button">
+                        <el-input
+                            v-model="searchName"
+                            clearable
+                            @clear="search()"
+                            suffix-icon="Search"
+                            @keyup.enter="search()"
+                            @change="search()"
+                            :placeholder="$t('commons.button.search')"
+                        ></el-input>
+                    </div>
+                </el-col>
+            </el-row>
+        </template>
         <template #main>
             <ComplexTable :pagination-config="paginationConfig" :data="data" @search="search" @sort-change="search">
                 <el-table-column :label="$t('celebrities.headshot')" prop="headshot" fix>
