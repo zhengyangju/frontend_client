@@ -196,11 +196,7 @@ const initForm = () => ({
     contact_information: '',
 });
 const form = reactive(initForm());
-const rules = reactive({
-    name: [Rules.requiredInput],
-    ballot: [Rules.integerNumberWith0],
-    remark: [Rules.requiredInput],
-});
+const rules = reactive({});
 
 const props = defineProps({
     isEdit: Boolean,
