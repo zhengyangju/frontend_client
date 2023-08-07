@@ -254,6 +254,7 @@ const message = {
         process: '进程',
         network: '网络',
         userlist: '用户管理',
+        celebrityCharacter: '名人类型',
     },
     home: {
         overview: '概览',
@@ -1197,6 +1198,13 @@ const message = {
         bilibili_link: 'B站链接',
         weibolntl_link: '微博链接',
     },
+    celebrityCharacter: {
+        character: '网络名人类型',
+        create: '新增类型',
+        edit: '编辑类型',
+        name: '类型',
+        id: 'ID',
+    },
     celebrities: {
         entertainment: '娱乐类',
         lifeCategory: '生活类',
@@ -1222,6 +1230,7 @@ const message = {
         delete_celebrity: '删除网红',
         confirm_delete: '您是否确认删除此网红？',
         description_article: '文章描述:',
+        upload_avatart: '导入头像',
         app: '应用',
         installName: '安装名称',
         installed: '已安装',

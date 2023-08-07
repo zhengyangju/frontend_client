@@ -3,15 +3,10 @@
         <div class="footer-left">
             <a href="https://fit2cloud.com/" target="_blank">Copyright © 2023 FIT2CLOUD Test</a>
         </div>
-        <div class="footer-right">
-            <SystemUpgrade :footer="false" />
-        </div>
     </div>
 </template>
 
-<script setup lang="ts">
-import SystemUpgrade from '@/components/system-upgrade/index.vue';
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
 .footer {

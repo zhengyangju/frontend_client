@@ -22,14 +22,14 @@
                                 >
                                     <template #read>
                                         <el-tag disable-transitions>
-                                            {{ characters.find((item) => item.value === form.character).label }}
+                                            {{ calcCharacter(form) }}
                                         </el-tag>
                                     </template>
                                     <el-option
-                                        v-for="item in characters"
-                                        :key="item.key"
-                                        :label="item.label"
-                                        :value="item.value"
+                                        v-for="item in characters.list"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id"
                                     />
                                 </fu-select-rw-switch>
                             </el-form-item>
@@ -170,17 +170,17 @@ const emit = defineEmits(['search']);
 
 const loading = ref();
 
-const data = ref();
-
 const backupVisiable = ref(false);
 const uploadRef = ref();
 const formRef = ref();
 const is_edit = ref(true);
 
-const characters = ref();
+const characters = reactive({
+    list: [],
+});
 const sexTypes = ref();
 const initForm = () => ({
-    character: 1,
+    character: '',
     name: '',
     headshot: '',
     sex: 1,
@@ -197,37 +197,15 @@ const initForm = () => ({
 });
 const form = reactive(initForm());
 const rules = reactive({
-    name: [Rules.requiredInput, Rules.name],
+    name: [Rules.requiredInput],
     ballot: [Rules.integerNumberWith0],
     remark: [Rules.requiredInput],
 });
 
 const props = defineProps({
     isEdit: Boolean,
+    list: Array,
 });
-
-characters.value = [
-    {
-        label: i18n.global.t('celebrities.entertainment'),
-        value: 1,
-        key: 'entertainment',
-    },
-    {
-        label: i18n.global.t('celebrities.lifeCategory'),
-        value: 2,
-        key: 'lifeCategory',
-    },
-    {
-        label: i18n.global.t('celebrities.gameCategory'),
-        value: 3,
-        key: 'gameCategory',
-    },
-    {
-        label: i18n.global.t('celebrities.knowledgeCategory'),
-        value: 4,
-        key: 'knowledgeCategory',
-    },
-];
 
 sexTypes.value = [
     {
@@ -243,6 +221,7 @@ sexTypes.value = [
 ];
 
 const acceptParams = (row): void => {
+    characters.list = props.list;
     backupVisiable.value = true;
     if (props.isEdit !== undefined) {
         is_edit.value = props.isEdit;
@@ -252,6 +231,15 @@ const acceptParams = (row): void => {
 const handleClose = () => {
     backupVisiable.value = false;
     Object.assign(form, initForm());
+};
+
+const calcCharacter = (form) => {
+    let item = characters.list.find((item) => item.id === form.character);
+    if (item) {
+        return item.name;
+    } else {
+        return '';
+    }
 };
 
 const onSubmit = async (formEl: FormInstance | undefined) => {
@@ -273,7 +261,7 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
 
 const getDetail = (row) => {
     getCelebrityDetail({ id: row.id }).then((res: any) => {
-        data.value = [res.data];
+        // data.value = [res.data];
         for (const key in res.data) {
             const element = res.data[key];
             form[key] = element;
@@ -289,8 +277,9 @@ const openUploads = (row) => {
 
 const setUrl = (row) => {
     // console.log(row);
-    let d = data.value.find((item) => item.id === row.id);
-    d['headshot'] = row.headshot;
+    // let d = data.value.find((item) => item.id === row.id);
+    // d['headshot'] = row.headshot;
+    form['headshot'] = row.headshot;
 };
 
 defineExpose({

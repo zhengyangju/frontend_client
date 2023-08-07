@@ -25,9 +25,24 @@ export const editCelebrityDetail = (params: Celebrities.CelebrityDetail) => {
 export const uploadCelebrityFiles = (params: FormData, config: AxiosRequestConfig) => {
     return http.upload<File.File>('/celebrities/load', params, config);
 };
+export const uploadMultipleAvatarFiles = (params: FormData, config: AxiosRequestConfig) => {
+    return http.uploadPut<File.File>('/images/upload/batch', params, config);
+};
 export const ChunkCelebrityUploadFileData = (params: FormData, config: AxiosRequestConfig) => {
     return http.upload<File.File>('files/chunkupload', params, config);
 };
 export const downloadCelebrityFiles = (params?: File.FileDownload) => {
     return http.download<BlobPart>('/celebrities/template', params, { responseType: 'blob', timeout: 20000 });
+};
+export const getCelebrityCharacterPage = (params: Celebrities.SearchCelebrityCharacterPage) => {
+    return http.get<ResPage<Celebrities.CelebrityCharacterInfo>>(`/celebrity_characters`, params);
+};
+export const editCelebrityCharacter = (params: Celebrities.CelebrityCharacterInfo) => {
+    return http.put(`/celebrity_characters/${params.id}`, params);
+};
+export const addCelebrityCharacter = (params: Celebrities.CelebrityCharacterInfo) => {
+    return http.post(`/celebrity_characters`, params);
+};
+export const deleteCelebrityCharacter = (params: Celebrities.CelebrityCharacterInfo) => {
+    return http.delete(`/celebrity_characters/${params.id}`);
 };

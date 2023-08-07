@@ -17,7 +17,7 @@
                 popper-class="sidebar-container-popper"
             >
                 <SubItem :menuList="routerMenus"></SubItem>
-                <el-menu-item :index="''" v-if="false">
+                <el-menu-item v-if="false" :index="''">
                     <el-icon @click="logout">
                         <SvgIcon :iconName="'p-logout'" :className="'svg-icon'"></SvgIcon>
                     </el-icon>

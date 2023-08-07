@@ -1,10 +1,10 @@
 <template>
-    <LayoutContent v-loading="loading" :title="$t('users.userlist')">
+    <LayoutContent v-loading="loading" :title="''">
         <template #toolbar>
             <el-row>
                 <el-col :xs="24" :sm="16" :md="16" :lg="16" :xl="16">
                     <el-button plain :disabled="false" type="primary" @click="onOpenBackupDialog">
-                        {{ $t('users.create') }}
+                        {{ $t('celebrityCharacter.create') }}
                     </el-button>
                 </el-col>
                 <el-col :xs="24" :sm="8" :md="8" :lg="8" :xl="8">
@@ -24,52 +24,17 @@
         </template>
         <template #main>
             <ComplexTable :pagination-config="paginationConfig" :data="data" @search="search" @sort-change="search">
-                <el-table-column :label="$t('users.username')" prop="username">
+                <el-table-column :label="$t('celebrityCharacter.id')" prop="id">
                     <template #default="{ row }">
-                        <span v-if="row.username">
-                            {{ row.username }}
+                        <span v-if="row.id">
+                            {{ row.id }}
                         </span>
                     </template>
                 </el-table-column>
-                <el-table-column :label="$t('users.sex')" prop="sex">
+                <el-table-column :label="$t('celebrityCharacter.name')" prop="name">
                     <template #default="{ row }">
-                        <span v-if="row.sex">
-                            {{ row.sex === 1 ? $t('celebrities.sex_man') : $t('celebrities.sex_woman') }}
-                        </span>
-                    </template>
-                </el-table-column>
-                <el-table-column :label="$t('users.phone')" prop="phone">
-                    <template #default="{ row }">
-                        <span v-if="row.phone">
-                            {{ row.phone }}
-                        </span>
-                    </template>
-                </el-table-column>
-                <el-table-column :label="$t('users.email')" prop="email">
-                    <template #default="{ row }">
-                        <span v-if="row.email">
-                            {{ row.email }}
-                        </span>
-                    </template>
-                </el-table-column>
-                <el-table-column :label="$t('users.creator')" prop="creator" sortable>
-                    <template #default="{ row }">
-                        <span v-if="row.creator">
-                            {{ row.creator }}
-                        </span>
-                    </template>
-                </el-table-column>
-                <el-table-column :label="$t('users.create_time')" prop="create_time">
-                    <template #default="{ row }">
-                        <span v-if="row.create_time">
-                            {{ row.create_time }}
-                        </span>
-                    </template>
-                </el-table-column>
-                <el-table-column :label="$t('users.last_login_time')" prop="last_login_time">
-                    <template #default="{ row }">
-                        <span v-if="row.last_login_time">
-                            {{ row.last_login_time }}
+                        <span v-if="row.name">
+                            {{ row.name }}
                         </span>
                     </template>
                 </el-table-column>
@@ -83,13 +48,13 @@
             </ComplexTable>
         </template>
     </LayoutContent>
-    <UsersEdit ref="dialogBackupRef" @search="search"></UsersEdit>
+    <CelebrityCharacterEdit ref="dialogBackupRef" @search="search"></CelebrityCharacterEdit>
 </template>
 
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue';
-import { getUserPage } from '@/api/modules/user';
-import UsersEdit from '../edit/index.vue';
+import { getCelebrityCharacterPage, deleteCelebrityCharacter } from '@/api/modules/celebrity';
+import CelebrityCharacterEdit from '../edit/index.vue';
 import i18n from '@/lang';
 // import { GlobalStore } from '@/store';
 
@@ -117,12 +82,16 @@ const buttons = [
     {
         label: i18n.global.t('commons.button.edit'),
         click: (row) => {
-            // getDetail(row);
             onOpenBackupDialog(row);
         },
-        // disabled: (row: Container.ContainerInfo) => {
-        //     return row.state !== 'running';
-        // },
+    },
+    {
+        label: i18n.global.t('commons.button.delete'),
+        click: (row) => {
+            deleteCelebrityCharacter(row).then(() => {
+                search();
+            });
+        },
     },
 ];
 
@@ -130,12 +99,13 @@ const search = async (column?: any) => {
     let params = {
         page: paginationConfig.currentPage,
         size: paginationConfig.pageSize,
+        is_page: true,
         orderBy: column?.order ? column.prop : 'created_at',
         order: column?.order ? column.order : 'null',
         searchName: searchName.value,
     };
     loading.value = true;
-    await getUserPage(params)
+    await getCelebrityCharacterPage(params)
         .then((res) => {
             loading.value = false;
             data.value = res.data.data || [];

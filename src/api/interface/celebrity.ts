@@ -14,6 +14,11 @@ export namespace Celebrities {
         is_liked: boolean;
     }
 
+    export interface CelebrityCharacterInfo {
+        name: string;
+        id?: string;
+    }
+
     export interface ReqCelebrity {
         id: string;
         is_followed?: boolean;
@@ -27,7 +32,7 @@ export namespace Celebrities {
         sex: number;
         ballot: number;
         remark: string;
-        character: number;
+        character: string;
         id: string;
         contact_information: string;
         tik_tok_link: string;
@@ -42,5 +47,10 @@ export namespace Celebrities {
         name?: string;
         sex?: string;
         orders?: Array<string>[];
+    }
+
+    export interface SearchCelebrityCharacterPage extends ReqPage {
+        name?: string;
+        is_page?: boolean;
     }
 }
