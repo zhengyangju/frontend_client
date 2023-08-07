@@ -1,7 +1,7 @@
 <template>
-    <div class="footer flx-justify-between">
+    <div v-if="false" class="footer flx-justify-between">
         <div class="footer-left">
-            <a href="javascript(0);">Copyright © 2023 Demo</a>
+            <a href="javascript:void(0);">Copyright © 2023 Demo</a>
         </div>
     </div>
 </template>
