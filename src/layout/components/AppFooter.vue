@@ -1,7 +1,7 @@
 <template>
     <div class="footer flx-justify-between">
         <div class="footer-left">
-            <a href="https://fit2cloud.com/" target="_blank">Copyright © 2023 FIT2CLOUD Test</a>
+            <a href="javascript(0);">Copyright © 2023 Demo</a>
         </div>
     </div>
 </template>
