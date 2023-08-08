@@ -169,7 +169,6 @@ import { editCelebrityDetail } from '@/api/modules/celebrity';
 import Uploads from '@/views/celebrities/upload/index.vue';
 import { UploadImageFileData } from '@/api/modules/images';
 import { MsgSuccess } from '@/utils/message';
-import { Rules } from '@/global/form-rules';
 import { FormInstance } from 'element-plus';
 
 const emit = defineEmits(['search']);
