@@ -40,7 +40,15 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
             proxy: {
                 '/api/v1.0': {
                     // target: 'https://demo.1panel.cn/',
-                    target: 'http://127.0.0.1:4523/m1/3116859-0-default',
+                    // target: 'http://127.0.0.1:4523/m1/3116859-0-default',
+                    target: 'http://8.217.25.202:8000/',
+                    changeOrigin: true,
+                    ws: true,
+                },
+                '/static/': {
+                    // target: 'https://demo.1panel.cn/',
+                    // target: 'http://127.0.0.1:4523/m1/3116859-0-default',
+                    target: 'http://8.217.25.202:8000/',
                     changeOrigin: true,
                     ws: true,
                 },

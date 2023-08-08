@@ -13,7 +13,7 @@
                                 <el-avatar :size="275" :src="form.headshot" @click="openUploads(form)" />
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6">
+                        <el-col :xs="24" :sm="12" :md="9" :lg="9" :xl="9">
                             <el-form-item :label="$t('celebrities.character')" prop="character">
                                 <fu-select-rw-switch
                                     :disabled="!is_edit"
@@ -57,16 +57,16 @@
                                 </fu-select-rw-switch>
                             </el-form-item>
 
-                            <el-form-item :label="$t('rank.contact_information')" prop="contact_information">
+                            <el-form-item :label="$t('celebrities.remark')" prop="remark">
                                 <fu-input-rw-switch
                                     clearable
                                     :disabled="!is_edit"
                                     style="width: 100%"
-                                    v-model.trim="form.contact_information"
+                                    v-model.trim="form.remark"
                                 ></fu-input-rw-switch>
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6">
+                        <el-col :xs="24" :sm="12" :md="9" :lg="9" :xl="9">
                             <el-form-item :label="$t('celebrities.address')" prop="address">
                                 <fu-input-rw-switch
                                     clearable
@@ -83,70 +83,76 @@
                                     v-model.trim="form.ballot"
                                 ></fu-input-rw-switch>
                             </el-form-item>
-
-                            <el-form-item :label="$t('rank.tik_tok_link')" prop="tik_tok_link">
+                            <el-form-item :label="$t('rank.contact_information')" prop="contact_information">
                                 <fu-input-rw-switch
                                     clearable
                                     :disabled="!is_edit"
                                     style="width: 100%"
-                                    v-model.trim="form.tik_tok_link"
+                                    v-model.trim="form.contact_information"
                                 ></fu-input-rw-switch>
                             </el-form-item>
-                            <el-form-item :label="$t('rank.little_red_book_link')" prop="little_red_book_link">
-                                <fu-input-rw-switch
-                                    clearable
-                                    :disabled="!is_edit"
-                                    style="width: 100%"
-                                    v-model.trim="form.little_red_book_link"
-                                ></fu-input-rw-switch>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6">
-                            <el-form-item :label="$t('rank.bilibili_link')" prop="bilibili_link">
-                                <fu-input-rw-switch
-                                    clearable
-                                    :disabled="!is_edit"
-                                    style="width: 100%"
-                                    v-model.trim="form.bilibili_link"
-                                ></fu-input-rw-switch>
-                            </el-form-item>
-                            <el-form-item :label="$t('rank.weibolntl_link')" prop="weibolntl_link">
-                                <fu-input-rw-switch
-                                    clearable
-                                    :disabled="!is_edit"
-                                    style="width: 100%"
-                                    v-model.trim="form.weibolntl_link"
-                                ></fu-input-rw-switch>
-                            </el-form-item>
-                            <el-form-item :label="$t('celebrities.remark')" prop="remark">
-                                <fu-input-rw-switch
-                                    clearable
-                                    :disabled="!is_edit"
-                                    style="width: 100%"
-                                    v-model.trim="form.remark"
-                                ></fu-input-rw-switch>
-                            </el-form-item>
-                            <el-form-item v-if="is_edit" :label="$t('commons.table.operate')" prop="weibolntl_link">
+                            <el-form-item v-if="is_edit" :label="$t('commons.table.operate')">
                                 <el-button type="primary" @click="onSubmit(formRef)">
                                     {{ $t('commons.button.save') }}
                                 </el-button>
+                                <el-button type="primary" @click="onChangeState">编辑链接</el-button>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <!-- start -->
+                    <el-row type="flex" justify="start" :gutter="10">
+                        <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+                            <el-form-item :label="$t('rank.bilibili_link')" prop="bilibili_link">
+                                <el-input v-if="doEdit()" clearable v-model.trim="form.bilibili_link" />
+                                <el-link v-else :href="form.bilibili_link" target="_blank">
+                                    {{ form.bilibili_link }}
+                                </el-link>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row type="flex" justify="start" :gutter="10">
                         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-                            <el-form-item :label="$t('celebrities.description_article')" prop="description">
-                                <fu-input-rw-switch
-                                    :disabled="!is_edit"
-                                    :rows="8"
-                                    type="textarea"
-                                    style="width: 100%"
-                                    v-model.trim="form.description"
-                                    placeholder="文章描述"
-                                ></fu-input-rw-switch>
+                            <el-form-item :label="$t('rank.weibolntl_link')" prop="weibolntl_link">
+                                <el-input v-if="doEdit()" clearable v-model.trim="form.weibolntl_link" />
+                                <el-link v-else :href="form.weibolntl_link" target="_blank">
+                                    {{ form.weibolntl_link }}
+                                </el-link>
                             </el-form-item>
                         </el-col>
                     </el-row>
+                    <el-row type="flex" justify="start" :gutter="10">
+                        <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+                            <el-form-item :label="$t('rank.tik_tok_link')" prop="tik_tok_link">
+                                <el-input v-if="doEdit()" clearable v-model.trim="form.tik_tok_link" />
+                                <el-link v-else :href="form.tik_tok_link" target="_blank">
+                                    {{ form.tik_tok_link }}
+                                </el-link>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row type="flex" justify="start" :gutter="10">
+                        <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+                            <el-form-item :label="$t('rank.little_red_book_link')" prop="little_red_book_link">
+                                <el-input v-if="doEdit()" clearable v-model.trim="form.little_red_book_link" />
+                                <el-link v-else :href="form.little_red_book_link" target="_blank">
+                                    {{ form.little_red_book_link }}
+                                </el-link>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <!-- <el-row type="flex" justify="start" :gutter="10">
+                        <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+                            <el-form-item :label="$t('celebrities.description_article')" prop="description">
+                                <el-input
+                                    :rows="8"
+                                    type="textarea"
+                                    :disabled="!doEdit()"
+                                    clearable
+                                    v-model.trim="form.little_red_book_link"
+                                />
+                            </el-form-item>
+                        </el-col>
+                    </el-row> -->
                 </el-form>
             </div>
         </el-drawer>
@@ -163,6 +169,7 @@ import { editCelebrityDetail } from '@/api/modules/celebrity';
 import Uploads from '@/views/celebrities/upload/index.vue';
 import { UploadImageFileData } from '@/api/modules/images';
 import { MsgSuccess } from '@/utils/message';
+import { Rules } from '@/global/form-rules';
 import { FormInstance } from 'element-plus';
 
 const emit = defineEmits(['search']);
@@ -173,13 +180,14 @@ const backupVisiable = ref(false);
 const uploadRef = ref();
 const formRef = ref();
 const is_edit = ref(true);
+const canEdit = ref(false);
 
 const characters = reactive({
     list: [],
 });
 const sexTypes = ref();
 const initForm = () => ({
-    character: '',
+    character: 1,
     name: '',
     headshot: '',
     sex: 1,
@@ -195,7 +203,10 @@ const initForm = () => ({
     contact_information: '',
 });
 const form = reactive(initForm());
-const rules = reactive({});
+const rules = reactive({
+    name: [Rules.requiredInput],
+    ballot: [Rules.integerNumberWith0],
+});
 
 const props = defineProps({
     isEdit: Boolean,
@@ -265,9 +276,17 @@ const getDetail = (row) => {
 };
 
 const openUploads = (row) => {
-    if (is_edit.value) {
+    if (doEdit()) {
         uploadRef.value.acceptParams(row);
     }
+};
+
+const onChangeState = () => {
+    canEdit.value = !canEdit.value;
+};
+
+const doEdit = () => {
+    return is_edit.value === true && canEdit.value === true;
 };
 
 const setUrl = (row) => {
