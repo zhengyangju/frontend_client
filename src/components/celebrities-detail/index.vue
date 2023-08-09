@@ -45,11 +45,11 @@
                                 <fu-select-rw-switch :disabled="!is_edit" style="width: 100%" v-model.trim="form.sex">
                                     <template #read>
                                         <el-tag disable-transitions>
-                                            {{ sexTypes.find((item) => item.value === form.sex).label }}
+                                            {{ sexTypes.list.find((item) => item.value === form.sex).label }}
                                         </el-tag>
                                     </template>
                                     <el-option
-                                        v-for="item in sexTypes"
+                                        v-for="item in sexTypes.list"
                                         :key="item.key"
                                         :label="item.label"
                                         :value="item.value"
@@ -184,7 +184,9 @@ const canEdit = ref(false);
 const characters = reactive({
     list: [],
 });
-const sexTypes = ref();
+const sexTypes = reactive({
+    list: [],
+});
 const initForm = () => ({
     character: 1,
     name: '',
@@ -209,7 +211,7 @@ const props = defineProps({
     list: Array,
 });
 
-sexTypes.value = [
+const sexTypesInit = () => [
     {
         label: i18n.global.t('celebrities.sex_man'),
         value: 1,
@@ -223,6 +225,7 @@ sexTypes.value = [
 ];
 
 const acceptParams = (row): void => {
+    sexTypes.list = sexTypesInit();
     characters.list = props.list;
     backupVisiable.value = true;
     if (props.isEdit !== undefined) {
