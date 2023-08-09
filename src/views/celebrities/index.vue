@@ -204,6 +204,7 @@ watch(
     () => globalStore.language,
     () => {
         nextTick(() => {
+            initCelebrityCharacter();
             Object.assign(buttons.list, buttonsInit());
         });
     },
