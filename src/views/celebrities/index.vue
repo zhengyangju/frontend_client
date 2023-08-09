@@ -59,7 +59,7 @@
                     <el-table-column ellipsis="4" :label="$t('commons.table.operate')" width="130">
                         <template #default="{ row }">
                             <el-button
-                                v-for="item in buttons"
+                                v-for="item in buttons.list"
                                 :key="item.key"
                                 :type="item.type(row)"
                                 link
@@ -85,7 +85,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref, watch, nextTick } from 'vue';
 import { getCelebrityPage, setCelebrityLike, getCelebrityCharacterPage } from '@/api/modules/celebrity';
 import CelebritiesDetail from '@/components/celebrities-detail/index.vue';
 import Uploads from './upload/index.vue';
@@ -94,10 +94,9 @@ import i18n from '@/lang';
 import { uploadCelebrityFiles, uploadMultipleAvatarFiles } from '@/api/modules/celebrity';
 import Delete from './delete/index.vue';
 import { MsgSuccess } from '@/utils/message';
-// import { GlobalStore } from '@/store';
+import { GlobalStore } from '@/store';
 
-// const globalStore = GlobalStore();
-
+const globalStore = GlobalStore();
 const paginationConfig = reactive({
     currentPage: 1,
     pageSize: 50,
@@ -128,7 +127,7 @@ const onOpenBackupDialog = async (row) => {
     dialogBackupRef.value!.acceptParams(row);
 };
 
-const buttons = [
+const buttonsInit = () => [
     {
         label: (row) => (row.is_liked ? i18n.global.t('celebrities.is_liked') : i18n.global.t('celebrities.is_like')),
         click: (row) => {
@@ -148,6 +147,9 @@ const buttons = [
         key: 4,
     },
 ];
+const buttons = reactive({
+    list: buttonsInit(),
+});
 
 const search = async (column?: any) => {
     let params = {
@@ -198,7 +200,14 @@ const handleChangeChacter = () => {
 const updateCelebrity = () => {
     search();
 };
-
+watch(
+    () => globalStore.language,
+    () => {
+        nextTick(() => {
+            Object.assign(buttons.list, buttonsInit());
+        });
+    },
+);
 onMounted(() => {
     initCelebrityCharacter();
     search();

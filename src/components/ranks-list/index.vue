@@ -5,7 +5,7 @@
                 <el-row class="top-header">
                     <el-col>
                         <div class="app-title">{{ $t('rank.day') }}</div>
-                        <el-text type="success" class="app-title-info">今日榜单</el-text>
+                        <el-text type="success" class="app-title-info">{{ $t('rank.day') }}</el-text>
                     </el-col>
                 </el-row>
                 <div class="top-content">
@@ -25,7 +25,7 @@
                 <el-row class="top-header rank-week">
                     <el-col>
                         <div class="app-title">{{ $t('rank.week') }}</div>
-                        <el-text type="success" class="app-title-info">本周榜单</el-text>
+                        <el-text type="success" class="app-title-info">{{ $t('rank.week') }}</el-text>
                     </el-col>
                 </el-row>
                 <div class="top-content">
@@ -45,7 +45,7 @@
                 <el-row class="top-header rank-month">
                     <el-col>
                         <div class="app-title">{{ $t('rank.month') }}</div>
-                        <el-text type="success" class="app-title-info">本月榜单</el-text>
+                        <el-text type="success" class="app-title-info">{{ $t('rank.month') }}</el-text>
                     </el-col>
                 </el-row>
                 <div class="top-content">

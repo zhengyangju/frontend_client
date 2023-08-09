@@ -41,7 +41,7 @@
                                     v-model.trim="form.name"
                                 ></fu-input-rw-switch>
                             </el-form-item>
-                            <el-form-item :label="$t('users.sex')" prop="sex">
+                            <el-form-item :label="$t('celebrities.sex')" prop="sex">
                                 <fu-select-rw-switch :disabled="!is_edit" style="width: 100%" v-model.trim="form.sex">
                                     <template #read>
                                         <el-tag disable-transitions>

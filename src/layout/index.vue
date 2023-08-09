@@ -7,6 +7,7 @@
 
         <div class="main-container">
             <mobile-header v-if="classObj.mobile" />
+            <language-set></language-set>
             <app-main class="app-main" />
 
             <Footer class="app-footer" v-if="!globalStore.isFullScreen" />
@@ -17,6 +18,7 @@
 <script setup lang="ts">
 import { computed, ref, onBeforeUnmount } from 'vue';
 import { Sidebar, Footer, AppMain, MobileHeader } from './components';
+import LanguageSet from '@/components/language-set/index.vue';
 import useResize from './hooks/useResize';
 import { GlobalStore } from '@/store';
 import { MenuStore } from '@/store/modules/menu';

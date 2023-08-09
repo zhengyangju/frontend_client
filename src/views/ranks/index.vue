@@ -8,7 +8,7 @@
                 },
             ]"
         /> -->
-        <div class="box-cell"></div>
+        <!-- <div class="box-cell"></div> -->
         <RanksList></RanksList>
     </div>
 </template>
